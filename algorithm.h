@@ -5,12 +5,13 @@
 #include <vector>
 #include <iostream>
 
-// ---------------- 二分查找 --------------------------------------
+// ------------------- 二分查找 -------------------------------
+
 // 二分查找，待查找的数组必须是有序的，可用std::sort();
 
-/** 二分查找，模板类型T需要重载 operator< 和 operator>
-    class T std::vector<VT> 或者 std::array<VT, MAX>
-    class ValueType = VT
+/** 模板类型T::value_type需要重载 operator< 和 operator>
+    class T 应为std::vector<VT> 或者 std::array<VT, MAX>等
+    class ValueType = VT = typename T::value_type
  */
 template<class T, class ValueType = typename T::value_type>
 std::size_t BinarySearch(const ValueType &key, const T &array);
@@ -18,19 +19,28 @@ std::size_t BinarySearch(const ValueType &key, const T &array);
 // c/c++指针版本
 int BinarySearch(int key, int *array, int len);
 
-// --------------------选择排序---------------------------------
+// ------------------- 选择排序 -------------------------------
+
+/** 模板类型T::value_type需要重载 operator< 和 operator>
+    class T 应为std::vector<VT> 或者 std::array<VT, MAX>等
+ */
 template<class T>
 void SelectionSort(T &array);
 
 // c/c++指针版本
 void SelectionSort(int *array, int len);
-//---------------------插入排序--------------------------------
+
+//-------------------- 插入排序 -------------------------------
+
+/** 模板类型T::value_type需要重载 operator< 和 operator>
+    class T 应为std::vector<VT> 或者 std::array<VT, MAX>等
+ */
 template<class T>
 void InsertSort(T &array);
 // c/c++指针版本
 void InsertSort(int *array, int len);
 
-//---------------------希尔排序-------------------------------
+//-------------------- 希尔排序 -------------------------------
 
 /** 对应关系      
             i = step * y + x
@@ -49,6 +59,10 @@ void InsertSort(int *array, int len);
             3 | 3   8         
             4 | 4   9   
 */
+
+/** 模板类型T::value_type需要重载 operator< 和 operator>
+    class T 应为std::vector<VT> 或者 std::array<VT, MAX>等
+ */
 template<class T>
 void ShellSort(T &array);
 // c/c++指针版本
