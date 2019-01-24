@@ -26,7 +26,6 @@ public:
     LRUCache(const LRUCache &) = delete;
     LRUCache(LRUCache &&) = default;
 
-   
     void put(KeyType key, ValueType &&value);
     ValueType get(KeyType key);
 
@@ -112,9 +111,6 @@ LRUCache<Key, Value, Hash, KeyEq>::get(KeyType key)
     }
 }
 
-
-
 } //!algorithm
-
 
 #endif //!LRU_CACHE_H

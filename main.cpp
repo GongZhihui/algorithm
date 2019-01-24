@@ -104,7 +104,6 @@ ALGORITHM_TEST_CASE(LURCache)
 
 int main()
 {
-    
     ALGORITHM_EXECUTE_CASE(ShellSort, 1);
     ALGORITHM_EXECUTE_CASE(LURCache, 1);
     std::cin.get();
