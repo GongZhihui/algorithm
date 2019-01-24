@@ -92,7 +92,7 @@ ALGORITHM_TEST_CASE(LURCache)
     cache.put(2, "wu");
     cache.put(3, "go");
     cache.put(4, "ho");
-    std::cout << cache.get(1) <<std::endl;
+    std::cout << cache.get(1) << std::endl;
     std::cout << cache.get(2) << std::endl;
     std::cout << cache.get(3) << std::endl;
     std::cout << cache.get(4) << std::endl;
