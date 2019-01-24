@@ -4,7 +4,7 @@
 #include <iostream>
 
 #define ALGORITHM_TEST_CASE(FUNC) void FUNC()
-// FLAG ÎªÕæ ÔòÖ´ÐÐ FUNC()
+// FLAG if FLAG is trueï¼Œ then execute FUNC()
 #define ALGORITHM_EXECUTE_CASE(FUNC, FLAG) \
     if(FLAG)\
     {\
