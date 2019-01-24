@@ -1,7 +1,11 @@
 #include "algorithm.h"
 #include <iostream>
 #include <algorithm>
+#include "TestUtils.h"
+#include "LRUCache.h"
+#include <string>
 
+using namespace algorithm;
 
 struct B
 {
@@ -38,7 +42,7 @@ bool operator>(const A &lhs, const A &rhs)
     return lhs.n > rhs.n;
 }
 
-int main()
+ALGORITHM_TEST_CASE(ShellSort)
 {
     // //std::cout<< add() << std::endl;   
     // std::array<int, 4> a = {1, 5, 7, 11};
@@ -71,16 +75,38 @@ int main()
     //     std::cout<< cc[i] << " ";
     // }
     // std::cout<< std::endl;
-
     std::vector<A> ac = {592, 401, 874, 141, 348, 72, 911, 887, 820, 283, 11};
-    
-    std::cout<< "---- \n";
+   
     ShellSort(ac);
-    for(int i = 0; i<ac.size(); i++)
+    for(std::size_t i = 0; i<ac.size(); i++)
     {
         std::cout<< ac[i].n << " ";
     }
     std::cout<< std::endl;
+}
+
+ALGORITHM_TEST_CASE(LURCache)
+{
+    LRUCache<int, std::string> cache{ 100 };
+    cache.put(1, "li");
+    cache.put(2, "wu");
+    cache.put(3, "go");
+    cache.put(4, "ho");
+    std::cout << cache.get(1) <<std::endl;
+    std::cout << cache.get(2) << std::endl;
+    std::cout << cache.get(3) << std::endl;
+    std::cout << cache.get(4) << std::endl;
+    std::cout << cache.get(3) << std::endl;
+    cache.put(1, "li");
+    std::cout << cache.get(4) << std::endl;
+    std::cout<< "LUR" << std::endl;
+}
+
+int main()
+{
+    
+    ALGORITHM_EXECUTE_CASE(ShellSort, 1);
+    ALGORITHM_EXECUTE_CASE(LURCache, 1);
     std::cin.get();
 
     return 0;

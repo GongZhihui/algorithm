@@ -5,6 +5,9 @@
 #include <vector>
 #include <iostream>
 
+namespace algorithm
+{
+
 // ------------------- 二分查找 -------------------------------
 
 // 二分查找，待查找的数组必须是有序的，可用std::sort();
@@ -69,7 +72,7 @@ void ShellSort(T &array);
 void ShellSort(int *array, int len);
 
 //------------------------------------------------------------
-template<class T, class ValueType = typename T::value_type>
+template<class T, class ValueType>
 std::size_t BinarySearch(const ValueType &key, const T &array)
 {
     int left = 0;
@@ -135,10 +138,10 @@ void ShellSort(T &array)
         {   这一段 是 插入排序 对应关系 i = step * y + x
         */
             //  i = step*1 + x = step + x;
-            for(int i = step + x; i < array.size(); i += step)
+            for(std::size_t i = step + x; i < array.size(); i += step)
             {
                 //j = step*0 + x = x;
-                for(int j = x; j < i; j += step)
+                for(std::size_t j = x; j < i; j += step)
                 {
                     if(array[i] < array[j])
                     {
@@ -155,5 +158,5 @@ void ShellSort(T &array)
     }
 }
 
-
+} // !algorithm
 #endif //!ALGORITHM_H

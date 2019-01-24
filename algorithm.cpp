@@ -1,5 +1,8 @@
 #include "algorithm.h"
 
+namespace algorithm
+{
+
 int BinarySearch(int key, int *array, int len)
 {
     int left = 0;
@@ -87,3 +90,5 @@ void ShellSort(int *array, int len)
         step = step / 2;
     }
 }
+
+} // !algorithm
