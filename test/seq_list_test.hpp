@@ -15,13 +15,48 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 //==============================================================================
 
-#include "test/test.h"
+#ifndef SEQ_LIST_TEST_HPP
+#define SEQ_LIST_TEST_HPP
 
-int main()
+#include "TestUtils.h"
+#include "../SeqList.h"
+
+using namespace algorithm::c;
+using namespace algorithm::cxx;
+
+ALGORITHM_TEST_CASE(seq_insert_delete)
 {
-    
-    run_test();
-    //std::cin.get();
-
-    return 0;
+    seq_list list;
+    seq_list_init(&list);
+    auto ret = seq_list_insert_element(&list, 0, 2);
+    if(ret == seq_list_end(&list))
+    {
+        std::cout<< "end" << std::endl;
+    }
+    seq_list_show(&list);
+    seq_list_insert_element(&list, 1, 3);
+    seq_list_show(&list);
+    seq_list_insert_element(&list, 1, 4);
+    seq_list_show(&list);
+    seq_list_insert_element(&list, 2, 5);
+    seq_list_show(&list);
+    seq_list_insert_element(&list, 3, 7);
+    seq_list_show(&list);
+    int a = 0;
+    ret = seq_list_delete_element(&list, 2, &a);
+    seq_list_show(&list);
 }
+
+ALGORITHM_TEST_CASE(seq_pop_fornt)
+{
+
+}
+
+ALGORITHM_TEST_CASE(SeqList_test)
+{
+    ALGORITHM_EXECUTE_CASE(seq_insert_delete, 1);
+    ALGORITHM_EXECUTE_CASE(seq_pop_fornt, 1);
+}
+
+
+#endif // !SEQ_LIST_TEST_HPP

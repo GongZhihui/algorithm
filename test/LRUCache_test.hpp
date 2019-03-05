@@ -15,13 +15,39 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 //==============================================================================
 
-#include "test/test.h"
+#ifndef LRUCACHE_TEST_HPP
+#define LRUCACHE_TEST_HPP
 
-int main()
+#include "TestUtils.h"
+#include "../LRUCache.h"
+
+using namespace algorithm;
+
+ALGORITHM_TEST_CASE(LURCache)
 {
-    
-    run_test();
-    //std::cin.get();
-
-    return 0;
+    LRUCache<int, std::string> cache{ 100 };
+    cache.put(1, "li");
+    cache.put(2, "wu");
+    cache.put(3, "go");
+    cache.put(4, "ho");
+    std::cout << cache.get(1) << std::endl;
+    std::cout << cache.get(2) << std::endl;
+    std::cout << cache.get(3) << std::endl;
+    std::cout << cache.get(4) << std::endl;
+    std::cout << cache.get(3) << std::endl;
+    cache.put(1, "li");
+    std::cout << cache.get(4) << std::endl;
+    std::cout<< "LUR" << std::endl;
 }
+
+// 执行
+ALGORITHM_TEST_CASE(LURCache_test)
+{
+    ALGORITHM_EXECUTE_CASE(LURCache, 0);
+}
+
+
+
+
+
+#endif // !LRUCACHE_TEST_HPP

@@ -15,13 +15,19 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 //==============================================================================
 
-#include "test/test.h"
+#ifndef TEST_HPP
+#define TEST_HPP
 
-int main()
+#include "seq_list_test.hpp"
+#include "LRUCache_test.hpp"
+#include "algorithm_test.hpp"
+
+void run_test()
 {
-    
-    run_test();
-    //std::cin.get();
-
-    return 0;
+    algorithm_test();
+    LURCache_test();
+    SeqList_test();
 }
+
+
+#endif // !TEST_HPP

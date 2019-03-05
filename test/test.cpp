@@ -15,13 +15,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 //==============================================================================
 
-#include "test/test.h"
+#include "test.h"
 
-int main()
-{
-    
-    run_test();
-    //std::cin.get();
-
-    return 0;
-}
+// empty for cmake
