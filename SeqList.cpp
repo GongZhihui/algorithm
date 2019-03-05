@@ -60,7 +60,8 @@ void seq_list_push_back(seq_list *L, data_type e)
 /*删除最后一个*/
 void seq_list_pop_back(seq_list *L)
 {
-    seq_list_delete_element(L, seq_list_length(L) - 1, NULL);
+    int e = 0;
+    seq_list_delete_element(L, seq_list_length(L) - 1, &e);
 }
 /*头插*/
 void seq_list_push_front(seq_list *L, data_type e)
@@ -70,7 +71,8 @@ void seq_list_push_front(seq_list *L, data_type e)
 /*删除第一个元素*/
 void seq_list_pop_front(seq_list *L)
 {
-    seq_list_delete_element(L, 0, NULL);
+    int e = 0;
+    seq_list_delete_element(L, 0, &e);
 }
 
 
@@ -140,8 +142,6 @@ data_type *seq_list_insert_element(seq_list *L, int pos, data_type e)
 /*操作结果：删除L的第i个数据元素，并用e返回其值，L的长度减1*/
 data_type *seq_list_delete_element(seq_list *L, int pos, data_type *e)
 {
-    // 0 1 2 3   len 4
-    // 5 7 2 3
     if (pos < 0 || pos > L->length)
         return NULL;
     if (pos == L->length)

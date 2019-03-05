@@ -19,7 +19,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 int main()
 {
-    
     run_test();
     //std::cin.get();
 

@@ -18,16 +18,16 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #ifndef TEST_HPP
 #define TEST_HPP
 
+#include "TestUtils.h"
 #include "seq_list_test.hpp"
 #include "LRUCache_test.hpp"
 #include "algorithm_test.hpp"
 
 void run_test()
 {
-    algorithm_test();
-    LURCache_test();
-    SeqList_test();
+    ALGORITHM_EXECUTE(algorithm_test, 0);
+    ALGORITHM_EXECUTE(LURCache_test, 0);
+    ALGORITHM_EXECUTE(SeqList_test, 1);
 }
-
 
 #endif // !TEST_HPP

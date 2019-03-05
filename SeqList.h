@@ -19,9 +19,15 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #define SEQ_LIST_H
 
 #include <cstring>
+#include <utility>
+#include <string>
 
 namespace algorithm
 {
+
+/** 顺序表的实现 namespace c c语言实现
+    namespace cxx c++实现
+*/
 
 namespace c
 {
@@ -38,18 +44,18 @@ typedef struct seq_list_t
 
 void seq_list_show(seq_list *L);
 
-data_type * seq_list_end(seq_list *L);
-data_type * seq_list_begin(seq_list *L);
+data_type *seq_list_end(seq_list *L);
+data_type *seq_list_begin(seq_list *L);
 
-data_type * seq_list_back(seq_list *L);
-data_type * seq_list_front(seq_list *L);
+data_type *seq_list_back(seq_list *L);
+data_type *seq_list_front(seq_list *L);
 
 /*尾插*/
-void seq_list_push_back(seq_list *L);
+void seq_list_push_back(seq_list *L, data_type e);
 /*删除最后一个*/
 void seq_list_pop_back(seq_list *L);
 /*头插*/
-void seq_list_push_front(seq_list *L);
+void seq_list_push_front(seq_list *L, data_type e);
 /*删除第一个元素*/
 void seq_list_pop_front(seq_list *L);
 
@@ -70,27 +76,34 @@ int seq_list_length(seq_list *L);
 
 /*初始条件：线性表L已存在,1≤i≤LIST_SIZE*/
 /*操作结果：用e返回L中第i个数据元素的值*/
-data_type * seq_list_get_element(seq_list *L, int pos);
+data_type *seq_list_get_element(seq_list *L, int pos);
 
 /*初始条件：线性表L已存在*/
 /*操作结果：在L中第i个位置之前插入新的数据元素e，L的长度加1, 并返回下一个位置的指针*/
-data_type * seq_list_insert_element(seq_list *L, int pos, data_type e);
+data_type *seq_list_insert_element(seq_list *L, int pos, data_type e);
 
 /*初始条件：线性表L已存在*/
 /*操作结果：删除L的第i个数据元素，并用e返回其值，L的长度减1, 并返回该位置的当前值的指针*/
-data_type * seq_list_delete_element(seq_list *L, int pos, data_type *e);
+data_type *seq_list_delete_element(seq_list *L, int pos, data_type *e);
 
 } // namespace c
 
 namespace cxx
 {
 
+/**顺序表
+*/
 template <class T, int Max>
 class SequenceList
 {
-  public:
-    using DataType = T;
+public:
+    using value_type = T;
+    using value_pointer = value_type *;
+    using value_cpointer = const value_type *;
+    using value_reference = value_type &;
+    using value_creference = const value_type &;
 
+public:
     SequenceList()
         : mLength(0)
     {
@@ -107,31 +120,96 @@ class SequenceList
 
     int length() const { return mLength; }
 
-    bool insert(int pos, DataType &&e)
+    //返回下一个元素的指针
+    value_cpointer insert(int pos, value_type &&e)
     {
-        return false;
+        if (pos < 0 || pos > mLength)
+            return NULL;
+        if (pos == mLength)
+        {
+            mData[pos] = std::move(e);
+            mLength += 1;
+            return cend();
+        }
+
+        for (int i = mLength; i >= pos + 1; i--)
+        {
+            mData[i] = mData[i - 1];
+        }
+        mData[pos] = e;
+        mLength += 1;
+        return &mData[pos + 1];
     }
 
-    bool get(int pos, DataType &e)
+    value_cpointer get(int pos) const
     {
-        return false;
+        if (pos < 0 || pos > mLength - 1)
+            return NULL;
+        return &mData[pos];
     }
 
-    bool delet(int pos)
+    //返回这个位置的指针, prev 删除前的元素值
+    value_cpointer erase(int pos, value_reference prev)
     {
-        return false;
+        if (pos < 0 || pos > mLength)
+            return NULL;
+        if (pos == mLength)
+            return cend();
+
+        prev = mData[pos];
+        for (int i = pos; i < mLength - 1; i++)
+        {
+            mData[i] = mData[i + 1];
+        }
+        mLength -= 1;
+        return &mData[pos];
     }
 
-    const DataType &cfront() const { return mData[0]; }
-    DataType &front() { return mData[mLength]; }
+    value_pointer begin() { return &mData[0]; }
+    value_cpointer cbegin() { return begin(); }
 
-    const DataType &cback() const { return mData[0]; }
-    DataType &back() { return mData[mLength]; }
+    value_pointer end() { return &mData[mLength]; }
+    value_cpointer cend() { return end(); }
 
-  private:
-    DataType mData[Max];
+    value_creference cfront() { return *begin(); }
+    value_reference front() { return *begin(); }
+
+    value_reference back() { return mData[mLength - 1]; }
+    value_creference cback() { return back(); }
+
+    void push_back(value_type &&e) { insert(mLength, std::forward<value_type>(e)); }
+    void push_front(value_type &&e) { insert(0, std::forward<value_type>(e)); }
+
+    void pop_back()
+    {
+        int ret = 0;
+        erase(mLength - 1, ret);
+    }
+
+    void pop_front()
+    {
+        int ret = 0;
+        erase(0, ret);
+    }
+
+    // value_type 需要为std::string()需要的类型
+    std::string to_string()
+    {
+        std::string ret = "";
+        for (auto it = begin(); it != end(); it++)
+        {
+            ret += std::to_string(*it);
+            ret += " ";
+        }
+        ret += "size: " + std::to_string(length());
+        return ret;
+    }
+
+private:
+    value_type mData[Max];
     int mLength;
 };
+
 
 } // namespace cxx
 
