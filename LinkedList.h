@@ -34,6 +34,7 @@ typedef struct single_list
     single_list *next;
 } single_list, *single_list_ptr;
 typedef single_list_ptr single_list_node;
+typedef single_list_ptr single_list_position;
 
 /**双向链表*/
 typedef struct list
@@ -41,24 +42,51 @@ typedef struct list
     data_type value;
     list *prev;
     list *next;
-} list, *list_ptr;
+} list, *list_ptr, *position;
 typedef list_ptr list_node;
+typedef list_ptr list_position;
 
 // 初始化
 void single_list_init(single_list *L);
-
 void list_init(list *L);
+
 // 长度
+int single_list_length(single_list *L);
+int list_length(list *L);
+
 // 是否为空
+bool single_list_is_empty(single_list *L);
+bool list_is_empty(list *L);
+
 // 输出链表
-// 指定位置插入
+void single_list_show(single_list *L);
+void list_show(list *L);
+
+// 指定位置后插入
+void single_list_insert_element(single_list *L, 
+    single_list_position pos, data_type e);
+void list_insert_element(list *L,
+    list_position pos, data_type e);
+
 // 头插
+void single_list_push_front(single_list *L, data_type e);
+void list_push_front(list *L, data_type e);
+
 // 尾插
-// 查找指定位置的值
-// 更新指定位置的值
+void single_list_push_back(single_list *L, data_type e);
+void list_push_back(list *L, data_type e);
+
 // 返回指定元素的第一个节点
-// 删除指定位置的节点
+single_list_node single_list_find_node(single_list *L, data_type e);
+list_node list_find_node(list *L, data_type e);
+
+// 删除指定的节点
+void single_list_erase_node(single_list *L, single_list_node node);
+void list_erase_node(list *L, list_node node);
+
 // 反转链表
+void single_list_reverse(single_list *L);
+void list_reverse(list *L);
 
 } // namespace c
 
@@ -77,21 +105,33 @@ public:
     using value_creference = const value_type &;
 
     using pointer = std::shared_ptr<SingleList>;
-
+    using node = pointer;
 public:
     SingleList() = default;
 
     // 长度
+    int length() const;
+    
     // 是否为空
-    // 输出链表
-    // 指定位置插入
+    bool empty() const;
+
+    // to_string
+    std::string to_string() const;
+
     // 头插
+    void push_front(value_type && e);
+
     // 尾插
-    // 查找指定位置的值
-    // 更新指定位置的值
+    void push_back(value_type && e);
+    
     // 返回指定元素的第一个节点
-    // 删除指定位置的节点
+    node find(value_creference e) const; 
+
+    // 清除除链表
+    void clear();
+    
     // 反转链表
+    void reverse();
 private:
     value_type value;
     pointer next = nullptr;
@@ -109,21 +149,35 @@ public:
     using value_creference = const value_type &;
 
     using pointer = std::shared_ptr<List>;
+    using node = pointer;
 
 public:
     List() = default;
 
     // 长度
+    int length() const;
+    
     // 是否为空
-    // 输出链表
-    // 指定位置插入
+    bool empty() const;
+
+    // to_string
+    std::string to_string() const;
+
     // 头插
+    void push_front(value_type && e);
+
     // 尾插
-    // 查找指定位置的值
-    // 更新指定位置的值
+    void push_back(value_type && e);
+    
     // 返回指定元素的第一个节点
-    // 删除指定位置的节点
+    node find(value_creference e) const; 
+
+    // 清除除链表
+    void clear();
+    
     // 反转链表
+    void reverse();
+    
 private:
     value_type value;
     pointer prev = nullptr;
