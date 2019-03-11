@@ -106,8 +106,21 @@ public:
 
     using pointer = std::shared_ptr<SingleList>;
     using node = pointer;
+
+    enum NodeType
+    {
+        Head,
+        Inner
+    };
+
 public:
     SingleList() = default;
+
+    SingleList(NodeType type)
+        : mNodeType(type)
+        , mNext(nullptr)
+    {
+    }
 
     // 长度
     int length() const;
@@ -133,8 +146,9 @@ public:
     // 反转链表
     void reverse();
 private:
-    value_type value;
-    pointer next = nullptr;
+    NodeType mNodeType = Inner;
+    value_type mValue;
+    pointer mNext = nullptr;
 };
 
 /**双向链表*/
@@ -151,11 +165,26 @@ public:
     using pointer = std::shared_ptr<List>;
     using node = pointer;
 
+    enum NodeType
+    {
+        Head,
+        Inner
+    };
 public:
     List() = default;
 
     // 长度
-    int length() const;
+    int length() const
+    {
+        int len = 0;
+        auto p = mNext;
+        if(p)
+        {
+            len++;
+            p = p->mNext;
+        }
+        return len;
+    }
     
     // 是否为空
     bool empty() const;
@@ -177,11 +206,12 @@ public:
     
     // 反转链表
     void reverse();
-    
+
 private:
-    value_type value;
-    pointer prev = nullptr;
-    pointer next = nullptr;
+    NodeType mNodeType = Inner;
+    value_type mValue;
+    pointer mPrev = nullptr;
+    pointer mNext = nullptr;
 };
 
 } // namespace cxx
